@@ -21,7 +21,7 @@ Step 3 - In the end of some period (monthly, weekly) the seller can ask the plat
 
 <Add image here>
 
-We have audit streams and HA using RabbitMQ queues. On the Backend side we are using springboot for batch jobs and microservices. Either mobile app (buyer's one) and web page app (seller's one) are built using React and React Native, respectively.
+We have audit streams and HA using RabbitMQ queues. On the Backend side we are using springboot for batch jobs and microservices. Either mobile app (buyer's one) and web page app (seller's one) are built using React native and React, respectively.
 
 ## Architecture Overview
 
