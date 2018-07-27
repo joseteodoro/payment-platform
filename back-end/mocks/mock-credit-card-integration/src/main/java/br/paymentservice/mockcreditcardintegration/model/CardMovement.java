@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class CardMovement {
@@ -14,13 +13,24 @@ public class CardMovement {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
-	@ManyToOne
-	private Card card;
-	
 	private String description;
 	
 	@Column(nullable = false)
 	private Long value;
+	
+	@Column(nullable = false)
+	private String cardNumber;
+	
+	@Column(nullable = false)
+	private String cvv;
+	
+	public String getCvv() {
+		return cvv;
+	}
+
+	public void setCvv(String cvv) {
+		this.cvv = cvv;
+	}
 
 	public Long getId() {
 		return id;
@@ -30,12 +40,12 @@ public class CardMovement {
 		this.id = id;
 	}
 
-	public Card getCard() {
-		return card;
+	public String getCardNumber() {
+		return cardNumber;
 	}
 
-	public void setCard(Card card) {
-		this.card = card;
+	public void setCardNumber(String cardNumber) {
+		this.cardNumber = cardNumber;
 	}
 
 	public String getDescription() {
