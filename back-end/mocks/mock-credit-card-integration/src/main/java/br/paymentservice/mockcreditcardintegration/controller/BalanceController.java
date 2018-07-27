@@ -1,5 +1,7 @@
 package br.paymentservice.mockcreditcardintegration.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +18,11 @@ import br.paymentservice.mockcreditcardintegration.model.Wallet;
 import br.paymentservice.mockcreditcardintegration.repository.CardDAO;
 import br.paymentservice.mockcreditcardintegration.repository.CardMovementDAO;
 import br.paymentservice.mockcreditcardintegration.repository.WalletDAO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController("/balance")
+@Api(value="/device")
 public class BalanceController {
 
 	@Autowired
@@ -29,10 +34,11 @@ public class BalanceController {
 	@Autowired
 	private CardMovementDAO cardMovementDAO;
 	
+	@ApiOperation(value = "Deposit the value on a Card and created a new one if cannot find the Card", response = Wallet.class)
 	@PostMapping("/deposit")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Wallet deposit(@RequestBody CardAction deposit) {
-		Card foundCard = this.cardDao.findByCardNumber(deposit.getCardNumber());
+		Card foundCard = this.cardDao.findByNumber(deposit.getCardNumber());
 		if (foundCard == null) {
 			Card createdCard = new Card();
 			createdCard.setCvv(deposit.getCvv());
@@ -54,10 +60,11 @@ public class BalanceController {
 		}
 	}
 	
+	@ApiOperation(value = "Debit the value from a Card", response = Wallet.class)
 	@PostMapping("/debit")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Wallet debit(@RequestBody CardAction debit) {
-		Card foundCard = this.cardDao.findByCardNumber(debit.getCardNumber());
+		Card foundCard = this.cardDao.findByNumber(debit.getCardNumber());
 		if (foundCard == null) {
 			throw new NotFoundException("Credit card", String.format("id: [%s]", debit.getCardNumber()));
 		} else {
@@ -69,13 +76,25 @@ public class BalanceController {
 		}
 	}
 	
+	@ApiOperation(value = "Get the balance from a Card", response = Wallet.class)
 	@GetMapping("/")
 	public Wallet balance(@RequestBody CardAction action) {
-		Card foundCard = this.cardDao.findByCardNumber(action.getCardNumber());
+		Card foundCard = this.cardDao.findByNumber(action.getCardNumber());
 		if (foundCard == null) {
 			throw new NotFoundException("Credit card", String.format("id: [%s]", action.getCardNumber()));
 		} else {
 			return this.walletDao.findByCard(foundCard);
+		}
+	}
+	
+	@ApiOperation(value = "Get the history from a Card", response = Wallet.class)
+	@GetMapping("/history")
+	public List<CardMovement> history(@RequestBody CardAction action) {
+		Card foundCard = this.cardDao.findByNumber(action.getCardNumber());
+		if (foundCard == null) {
+			throw new NotFoundException("Credit card", String.format("id: [%s]", action.getCardNumber()));
+		} else {
+			return this.cardMovementDAO.findByCard(foundCard);
 		}
 	}
 	

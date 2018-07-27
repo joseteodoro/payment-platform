@@ -15,7 +15,6 @@ public class Wallet {
     private Integer id;
 	
 	@OneToOne
-	@Column(nullable = false)
 	private Card card;
 	
 	private Long balance = 0l;

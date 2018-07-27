@@ -15,7 +15,6 @@ public class CardMovement {
 	private Long id;
 	
 	@ManyToOne
-	@Column(nullable = false)
 	private Card card;
 	
 	private String description;

@@ -6,6 +6,6 @@ import br.paymentservice.mockcreditcardintegration.model.Card;
 
 public interface CardDAO extends CrudRepository<Card, Long> {
 
-	public Card findByCardNumber(String cardNumber);
+	public Card findByNumber(String number);
 	
 }
