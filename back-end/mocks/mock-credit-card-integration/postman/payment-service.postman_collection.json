@@ -1,0 +1,95 @@
+{
+	"info": {
+		"_postman_id": "87840149-b279-4cb3-b194-a3b338b191ab",
+		"name": "payment-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Balance",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cardNumber\" :\"371039530787638\",\n\t\"cvv\" :\"911\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/balance",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"balance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deposit",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cardNumber\" :\"371039530787638\",\n\t\"cvv\" :\"911\",\n\t\"description\" :\"More Money!!!!\",\n\t\"owner\" :\"me\",\n\t\"value\": 1000000\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/balance/deposit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"balance",
+						"deposit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Moviment history",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"cardNumber\" :\"371039530787638\",\n\t\"cvv\" :\"911\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/balance/history",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"balance",
+						"history"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
