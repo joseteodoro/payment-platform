@@ -1,5 +1,5 @@
 # Payment-platform
-## A platform to do payments using QR codes
+## A platform to pay using QR codes
 
 This platform has two parts:
 
