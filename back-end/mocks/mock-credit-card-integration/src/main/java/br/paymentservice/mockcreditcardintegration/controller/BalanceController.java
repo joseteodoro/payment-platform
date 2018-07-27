@@ -69,8 +69,12 @@ public class BalanceController {
 		if (foundCard == null) {
 			throw new NotFoundException("Credit card", String.format("number: [%s]", debit.getCardNumber()));
 		} else {
-			makeMovement(debit);
 			Wallet foundWallet = this.walletDao.findByCard(foundCard);
+			if (foundWallet.getBalance() < debit.getValue()) {
+				throw new NotFoundException("No balance found for", String.format("number: [%s]", debit.getCardNumber()));
+			}
+			
+			makeMovement(debit);
 			foundWallet.setBalance(foundWallet.getBalance() - debit.getValue());
 			return walletDao.save(foundWallet);
 		}
